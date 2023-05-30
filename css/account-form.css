@@ -1,0 +1,57 @@
+html,
+body,
+.account-page {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(248, 249, 255, 100);
+}
+
+.account-container {
+  width: 400px;
+  margin: 24px auto 48px auto;
+  padding: 24px 42px;
+  box-shadow: 0 0 60px rgba(84, 89, 104, 0.05);
+  border-radius: 4px;
+  background-color: #fff;
+}
+.banner-img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.account-form {
+  margin-top: 48px;
+}
+.account-form .account-form-icon-label {
+  width: 48px;
+}
+.account-form .account-form-icon-input {
+  margin-left: 48px;
+}
+.account-form-rember-pwd .layui-form-checkbox,
+.account-form-rember-pwd .layui-form-checkbox[lay-skin='primary'] {
+  margin: 0;
+}
+.account-form-submit-btn {
+  width: 100%;
+}
+.account-form-extra-action-container {
+  margin-top: 6px;
+}
+.account-form-forget-pwd {
+  float: left;
+}
+.account-form-forget-register,
+.account-form-to-login {
+  float: right;
+}
+.account-form-extra-action-container {
+  overflow: hidden;
+}
+.account-form-send-verify-code-btn {
+  border-color: rgb(238, 238, 238);
+  width: 108px;
+}
+.account-form .account-form-verify-code-input {
+  width: 234px;
+}
