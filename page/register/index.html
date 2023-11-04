@@ -45,7 +45,7 @@
               <div class="layui-input-inline account-form-verify-code-input">
                 <input
                   type="number"
-                  name="verifyCode"
+                  name="code"
                   lay-verify="required"
                   autocomplete="off"
                   class="layui-input"
@@ -84,7 +84,7 @@
               type="submit"
               class="layui-btn account-form-submit-btn"
               lay-submit=""
-              lay-filter="loginForm"
+              lay-filter="registerForm"
             >
               注册
             </button>
@@ -140,13 +140,13 @@
           // 发送验证码
           $.ajax({
             type: 'POST',
-            url: 'https://webhook.site/bf768f97-694a-4428-91da-ae848ec7168f',
+            url: 'http://api.dev.danjubao.cn/v1/captcha',
             headers: {
               'Content-Type': 'application/json',
             },
-            data: {
+            data: JSON.stringify({
               phone: phoneVal,
-            },
+            }),
             success: function () {
               layer.msg('验证码发送成功', {
                 icon: 1,
@@ -174,6 +174,59 @@
               $('#sendVerifyCodeBtn').removeClass('layui-btn-disabled')
             },
           })
+        })
+      })
+    </script>
+
+    <script>
+      // 注册逻辑
+      layui.use('form', function () {
+        var form = layui.form
+
+        //监听提交
+        form.on('submit(registerForm)', function (data) {
+          $(data.elem).addClass('layui-btn-disabled').attr('disabled', true)
+
+          // 注册
+          $.ajax({
+            type: 'POST',
+            url: 'http://api.dev.danjubao.cn/v1/register',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            dataType: 'json',
+            data: JSON.stringify(data.field),
+            success: function (response) {
+              if (response.code !== 0) {
+                layer.msg(response.msg, {
+                  icon: 5,
+                  shift: 6,
+                })
+
+                return
+              }
+              console.log(response)
+              layer.msg('注册成功，请登录', {
+                icon: 1,
+              })
+              window.location.href = '../login/index.html'
+            },
+            error: function (e) {
+              console.log(e)
+              layer.msg('注册失败，请重试', {
+                icon: 5,
+                shift: 6,
+              })
+            },
+
+            complete: function () {
+              $(data.elem)
+                .removeClass('layui-btn-disabled')
+                .attr('disabled', false)
+            },
+          })
+
+          return false
         })
       })
     </script>

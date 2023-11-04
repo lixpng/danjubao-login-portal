@@ -101,20 +101,52 @@
         form.on('submit(loginForm)', function (data) {
           $(data.elem).addClass('layui-btn-disabled').attr('disabled', true)
 
-          layer.msg('登录成功', {
-            icon: 1,
-            time: 3000,
-            anim: 0,
-          })
+          $.ajax({
+            type: 'POST',
+            url: 'http://api.dev.danjubao.cn/v1/login',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            dataType: 'json',
+            data: JSON.stringify(data.field),
+            success: function (response) {
+              if (response.code !== 0) {
+                layer.msg(response.msg, {
+                  icon: 5,
+                  shift: 6,
+                })
 
-          setTimeout(function () {
-            window.external.CSAfterUerLogged(
-              JSON.stringify({
-                phone: data.field.phone,
-                token: data.field.password,
+                return
+              }
+
+              console.log(response)
+              layer.msg('登录成功', {
+                icon: 1,
+                time: 3000,
+                anim: 0,
               })
-            )
-          }, 3000)
+              setTimeout(function () {
+                window.external.CSAfterUerLogged(
+                  JSON.stringify({
+                    phone: data.field.phone,
+                    token: response.data,
+                  })
+                )
+              }, 3000)
+            },
+            error: function (e) {
+              layer.msg('登录失败，请重试', {
+                icon: 5,
+                shift: 6,
+              })
+            },
+
+            complete: function () {
+              $(data.elem)
+                .removeClass('layui-btn-disabled')
+                .attr('disabled', false)
+            },
+          })
 
           return false
         })
