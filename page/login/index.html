@@ -1,123 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../modules/layui-v2.6.8/css/layui.css" />
+    <link rel="stylesheet" href="../../css/account-form.css" />
+    <title>登录</title>
+    <style></style>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../../modules/layui-v2.6.8/css/layui.css" />
-  <link rel="stylesheet" href="../../css/account-form.css" />
-  <title>登录</title>
-  <style></style>
-</head>
+  <body>
+    <div class="account-page">
+      <div class="account-container">
+        <img
+          class="banner-img"
+          src="data:image/jpeg;base64,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"
+          alt="banner"
+          srcset=""
+        />
 
-<body>
-  <div class="account-page">
-    <div class="account-container">
-      <img class="banner-img"
-        src="data:image/jpeg;base64,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"
-        alt="banner" srcset="" />
-
-      <form class="layui-form layui-form-pane account-form" action="">
-        <div class="layui-form-item">
-          <label class="layui-form-label account-form-icon-label"><i
-              class="layui-icon layui-icon-cellphone"></i></label>
-          <div class="layui-input-block account-form-icon-input">
-            <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input"
-              placeholder="请输入手机号" />
+        <form class="layui-form layui-form-pane account-form" action="">
+          <div class="layui-form-item">
+            <label class="layui-form-label account-form-icon-label"
+              ><i class="layui-icon layui-icon-cellphone"></i
+            ></label>
+            <div class="layui-input-block account-form-icon-input">
+              <input
+                type="tel"
+                name="phone"
+                lay-verify="required|phone"
+                autocomplete="off"
+                class="layui-input"
+                placeholder="请输入手机号"
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="layui-form-item">
-          <label class="layui-form-label account-form-icon-label"><i class="layui-icon layui-icon-password"></i></label>
-          <div class="layui-input-block account-form-icon-input">
-            <input type="password" name="password" lay-verify="required" autocomplete="off" class="layui-input"
-              placeholder="请输入密码" required />
+          <div class="layui-form-item">
+            <label class="layui-form-label account-form-icon-label"
+              ><i class="layui-icon layui-icon-password"></i
+            ></label>
+            <div class="layui-input-block account-form-icon-input">
+              <input
+                type="password"
+                name="password"
+                lay-verify="required"
+                autocomplete="off"
+                class="layui-input"
+                placeholder="请输入密码"
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="layui-form-item account-form-rember-pwd">
-          <input type="checkbox" name="" title="记住密码" lay-skin="primary" />
-        </div>
+          <div class="layui-form-item account-form-rember-pwd">
+            <input
+              type="checkbox"
+              name=""
+              title="记住密码"
+              lay-skin="primary"
+            />
+          </div>
 
-        <!-- class="layui-btn layui-btn-normal account-form-submit-btn" -->
-        <button type="submit" class="layui-btn account-form-submit-btn" lay-submit="" lay-filter="loginForm">
-          登录
-        </button>
-        <!-- <button type="reset" class="layui-btn layui-btn-primary">
+          <!-- class="layui-btn layui-btn-normal account-form-submit-btn" -->
+          <button
+            type="submit"
+            class="layui-btn account-form-submit-btn"
+            lay-submit=""
+            lay-filter="loginForm"
+          >
+            登录
+          </button>
+          <!-- <button type="reset" class="layui-btn layui-btn-primary">
               重置
             </button> -->
 
-        <div class="account-form-extra-action-container">
-          <a href="../reset-pwd/index.html" class="account-form-forget-pwd layui-font-12">忘记密码？</a>
-          <a href="../register/index.html" class="account-form-forget-register layui-font-12">没有账号，立即注册</a>
-        </div>
-      </form>
+          <div class="account-form-extra-action-container">
+            <a
+              href="../reset-pwd/index.html"
+              class="account-form-forget-pwd layui-font-12"
+              >忘记密码？</a
+            >
+            <a
+              href="../register/index.html"
+              class="account-form-forget-register layui-font-12"
+              >没有账号，立即注册</a
+            >
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <script src="../../modules/layui-v2.6.8/layui.js"></script>
-  <script src="../../modules/jquery-1.12.4/index.min.js"></script>
-  <script>
-    $(function () {
-      layui.use('form', function () {
-        var form = layui.form
+    <script src="../../modules/layui-v2.6.8/layui.js"></script>
+    <script src="../../modules/jquery-1.12.4/index.min.js"></script>
+    <script>
+      $(function () {
+        layui.use('form', function () {
+          var form = layui.form
 
-        //监听提交
-        form.on('submit(loginForm)', function (data) {
-          $(data.elem).addClass('layui-btn-disabled').attr('disabled', true)
+          //监听提交
+          form.on('submit(loginForm)', function (data) {
+            $(data.elem).addClass('layui-btn-disabled').attr('disabled', true)
 
-          $.ajax({
-            type: 'POST',
-            url: 'http://api.dev.danjubao.cn/v1/login',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            dataType: 'json',
-            data: JSON.stringify(data.field),
-            success: function (response) {
-              if (response.code !== 0) {
-                layer.msg(response.msg, {
+            $.ajax({
+              type: 'POST',
+              url: 'https://api.dev.danjubao.cn/v1/login',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              dataType: 'json',
+              data: JSON.stringify(data.field),
+              success: function (response) {
+                if (response.code !== 0) {
+                  layer.msg(response.msg, {
+                    icon: 5,
+                    shift: 6,
+                  })
+
+                  return
+                }
+
+                console.log(response)
+                window.boundAsync
+                  .login(
+                    JSON.stringify({
+                      UserName: '',
+                      Phone: data.field.phone,
+                      Avatar: '',
+                      Token: response.data,
+                    })
+                  )
+                  .then(function () {
+                    layer.msg('登录成功', {
+                      icon: 1,
+                      time: 3000,
+                      anim: 0,
+                    })
+                  })
+              },
+              error: function (e) {
+                layer.msg('登录失败，请重试', {
                   icon: 5,
                   shift: 6,
                 })
+              },
 
-                return
-              }
+              complete: function () {
+                $(data.elem)
+                  .removeClass('layui-btn-disabled')
+                  .attr('disabled', false)
+              },
+            })
 
-              console.log(response)
-              window.boundAsync.login(JSON.stringify({
-                UserName: '',
-                Phone: data.field.phone,
-                Avatar: '',
-                Token: response.data
-              })).then(function () {
-                layer.msg('登录成功', {
-                  icon: 1,
-                  time: 3000,
-                  anim: 0,
-                })
-              })
-            },
-            error: function (e) {
-              layer.msg('登录失败，请重试', {
-                icon: 5,
-                shift: 6,
-              })
-            },
-
-            complete: function () {
-              $(data.elem)
-                .removeClass('layui-btn-disabled')
-                .attr('disabled', false)
-            },
+            return false
           })
-
-          return false
         })
       })
-    })
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
