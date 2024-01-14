@@ -20,86 +20,84 @@
         />
 
         <form class="layui-form layui-form-pane account-form" action="">
-          <form class="layui-form layui-form-pane account-form" action="">
-            <div class="layui-form-item">
-              <label class="layui-form-label account-form-icon-label"
-                ><i class="layui-icon layui-icon-cellphone"></i
-              ></label>
-              <div class="layui-input-block account-form-icon-input">
-                <input
-                  type="tel"
-                  name="phone"
-                  lay-verify="required|phone"
-                  autocomplete="off"
-                  class="layui-input"
-                  placeholder="请输入手机号"
-                  id="phone"
-                />
-              </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label account-form-icon-label"
+              ><i class="layui-icon layui-icon-cellphone"></i
+            ></label>
+            <div class="layui-input-block account-form-icon-input">
+              <input
+                type="tel"
+                name="phone"
+                lay-verify="required|phone"
+                autocomplete="off"
+                class="layui-input"
+                placeholder="请输入手机号"
+                id="phone"
+              />
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label account-form-icon-label"
+              ><i class="layui-icon layui-icon-vercode"></i
+            ></label>
+            <div class="layui-input-inline account-form-verify-code-input">
+              <input
+                type="number"
+                name="code"
+                lay-verify="required"
+                autocomplete="off"
+                class="layui-input"
+                placeholder="请输入验证码"
+              />
             </div>
 
-            <div class="layui-form-item">
-              <label class="layui-form-label account-form-icon-label"
-                ><i class="layui-icon layui-icon-vercode"></i
-              ></label>
-              <div class="layui-input-inline account-form-verify-code-input">
-                <input
-                  type="number"
-                  name="verifyCode"
-                  lay-verify="required"
-                  autocomplete="off"
-                  class="layui-input"
-                  placeholder="请输入验证码"
-                />
-              </div>
-
-              <button
-                class="layui-btn layui-btn-primary account-form-send-verify-code-btn"
-                type="button"
-                id="sendVerifyCodeBtn"
-              >
-                发送验证码
-              </button>
-            </div>
-
-            <div class="layui-form-item">
-              <label class="layui-form-label account-form-icon-label"
-                ><i class="layui-icon layui-icon-password"></i
-              ></label>
-              <div class="layui-input-block account-form-icon-input">
-                <input
-                  type="password"
-                  name="password"
-                  lay-verify="required"
-                  autocomplete="off"
-                  class="layui-input"
-                  placeholder="请输入密码"
-                  required
-                />
-              </div>
-            </div>
-
-            <!-- class="layui-btn layui-btn-normal account-form-submit-btn" -->
             <button
-              type="submit"
-              class="layui-btn account-form-submit-btn"
-              lay-submit=""
-              lay-filter="loginForm"
+              class="layui-btn layui-btn-primary account-form-send-verify-code-btn"
+              type="button"
+              id="sendVerifyCodeBtn"
             >
-              重置密码
+              发送验证码
             </button>
-            <!-- <button type="reset" class="layui-btn layui-btn-primary">
+          </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label account-form-icon-label"
+              ><i class="layui-icon layui-icon-password"></i
+            ></label>
+            <div class="layui-input-block account-form-icon-input">
+              <input
+                type="password"
+                name="password"
+                lay-verify="required"
+                autocomplete="off"
+                class="layui-input"
+                placeholder="请输入新密码"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- class="layui-btn layui-btn-normal account-form-submit-btn" -->
+          <button
+            type="submit"
+            class="layui-btn account-form-submit-btn"
+            lay-submit=""
+            lay-filter="resetPwdForm"
+          >
+            重置密码
+          </button>
+          <!-- <button type="reset" class="layui-btn layui-btn-primary">
                 重置
               </button> -->
 
-            <div class="account-form-extra-action-container">
-              <a
-                href="../login/index.html"
-                class="account-form-to-login layui-font-12"
-                >立即登录</a
-              >
-            </div>
-          </form>
+          <div class="account-form-extra-action-container">
+            <a
+              href="../login/index.html"
+              class="account-form-to-login layui-font-12"
+              >立即登录</a
+            >
+          </div>
         </form>
       </div>
     </div>
@@ -107,6 +105,7 @@
     <script src="../../modules/layui-v2.6.8/layui.js"></script>
     <script src="../../modules/jquery-1.12.4/index.min.js"></script>
     <script>
+      // 发送验证码
       layui.use('layer', function () {
         var layer = layui.layer
 
@@ -140,13 +139,13 @@
           // 发送验证码
           $.ajax({
             type: 'POST',
-            url: 'https://webhook.site/bf768f97-694a-4428-91da-ae848ec7168f',
+            url: 'https://api.danjubao.cn/v1/captcha',
             headers: {
               'Content-Type': 'application/json',
             },
-            data: {
+            data: JSON.stringify({
               phone: phoneVal,
-            },
+            }),
             success: function () {
               layer.msg('验证码发送成功', {
                 icon: 1,
@@ -174,6 +173,61 @@
               $('#sendVerifyCodeBtn').removeClass('layui-btn-disabled')
             },
           })
+        })
+      })
+    </script>
+
+    <script>
+      // 重置密码逻辑
+      layui.use('form', function () {
+        var form = layui.form
+
+        //监听提交
+        form.on('submit(resetPwdForm)', function (data) {
+          $(data.elem).addClass('layui-btn-disabled').attr('disabled', true)
+
+          // 重置密码
+          $.ajax({
+            type: 'POST',
+            url: 'https://api.danjubao.cn/v1/refresh_password',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            dataType: 'json',
+            data: JSON.stringify(data.field),
+            success: function (response) {
+              if (response.code !== 0) {
+                layer.msg(response.msg, {
+                  icon: 5,
+                  shift: 6,
+                })
+
+                return
+              }
+              console.log(response)
+              layer.msg('重置密码成功，请登录', {
+                icon: 1,
+              })
+              setTimeout(() => {
+                window.location.href = '../login/index.html'
+              }, 1000)
+            },
+            error: function (e) {
+              console.log(e)
+              layer.msg('重置密码失败，请重试', {
+                icon: 5,
+                shift: 6,
+              })
+            },
+
+            complete: function () {
+              $(data.elem)
+                .removeClass('layui-btn-disabled')
+                .attr('disabled', false)
+            },
+          })
+
+          return false
         })
       })
     </script>

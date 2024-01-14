@@ -20,86 +20,84 @@
         />
 
         <form class="layui-form layui-form-pane account-form" action="">
-          <form class="layui-form layui-form-pane account-form" action="">
-            <div class="layui-form-item">
-              <label class="layui-form-label account-form-icon-label"
-                ><i class="layui-icon layui-icon-cellphone"></i
-              ></label>
-              <div class="layui-input-block account-form-icon-input">
-                <input
-                  type="tel"
-                  name="phone"
-                  lay-verify="required|phone"
-                  autocomplete="off"
-                  class="layui-input"
-                  placeholder="请输入手机号"
-                  id="phone"
-                />
-              </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label account-form-icon-label"
+              ><i class="layui-icon layui-icon-cellphone"></i
+            ></label>
+            <div class="layui-input-block account-form-icon-input">
+              <input
+                type="tel"
+                name="phone"
+                lay-verify="required|phone"
+                autocomplete="off"
+                class="layui-input"
+                placeholder="请输入手机号"
+                id="phone"
+              />
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label account-form-icon-label"
+              ><i class="layui-icon layui-icon-vercode"></i
+            ></label>
+            <div class="layui-input-inline account-form-verify-code-input">
+              <input
+                type="number"
+                name="code"
+                lay-verify="required"
+                autocomplete="off"
+                class="layui-input"
+                placeholder="请输入验证码"
+              />
             </div>
 
-            <div class="layui-form-item">
-              <label class="layui-form-label account-form-icon-label"
-                ><i class="layui-icon layui-icon-vercode"></i
-              ></label>
-              <div class="layui-input-inline account-form-verify-code-input">
-                <input
-                  type="number"
-                  name="code"
-                  lay-verify="required"
-                  autocomplete="off"
-                  class="layui-input"
-                  placeholder="请输入验证码"
-                />
-              </div>
-
-              <button
-                class="layui-btn layui-btn-primary account-form-send-verify-code-btn"
-                type="button"
-                id="sendVerifyCodeBtn"
-              >
-                发送验证码
-              </button>
-            </div>
-
-            <div class="layui-form-item">
-              <label class="layui-form-label account-form-icon-label"
-                ><i class="layui-icon layui-icon-password"></i
-              ></label>
-              <div class="layui-input-block account-form-icon-input">
-                <input
-                  type="password"
-                  name="password"
-                  lay-verify="required"
-                  autocomplete="off"
-                  class="layui-input"
-                  placeholder="请输入密码"
-                  required
-                />
-              </div>
-            </div>
-
-            <!-- class="layui-btn layui-btn-normal account-form-submit-btn" -->
             <button
-              type="submit"
-              class="layui-btn account-form-submit-btn"
-              lay-submit=""
-              lay-filter="registerForm"
+              class="layui-btn layui-btn-primary account-form-send-verify-code-btn"
+              type="button"
+              id="sendVerifyCodeBtn"
             >
-              注册
+              发送验证码
             </button>
-            <!-- <button type="reset" class="layui-btn layui-btn-primary">
+          </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label account-form-icon-label"
+              ><i class="layui-icon layui-icon-password"></i
+            ></label>
+            <div class="layui-input-block account-form-icon-input">
+              <input
+                type="password"
+                name="password"
+                lay-verify="required"
+                autocomplete="off"
+                class="layui-input"
+                placeholder="请输入密码"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- class="layui-btn layui-btn-normal account-form-submit-btn" -->
+          <button
+            type="submit"
+            class="layui-btn account-form-submit-btn"
+            lay-submit=""
+            lay-filter="registerForm"
+          >
+            注册
+          </button>
+          <!-- <button type="reset" class="layui-btn layui-btn-primary">
                 重置
               </button> -->
 
-            <div class="account-form-extra-action-container">
-              <a
-                href="../login/index.html"
-                class="account-form-to-login layui-font-12"
-                >已有账号，立即登录</a
-              >
-            </div>
-          </form>
+          <div class="account-form-extra-action-container">
+            <a
+              href="../login/index.html"
+              class="account-form-to-login layui-font-12"
+              >已有账号，立即登录</a
+            >
+          </div>
         </form>
       </div>
     </div>
@@ -140,7 +138,7 @@
           // 发送验证码
           $.ajax({
             type: 'POST',
-            url: 'https://api.dev.danjubao.cn/v1/captcha',
+            url: 'https://api.danjubao.cn/v1/captcha',
             headers: {
               'Content-Type': 'application/json',
             },
@@ -190,7 +188,7 @@
           // 注册
           $.ajax({
             type: 'POST',
-            url: 'https://api.dev.danjubao.cn/v1/register',
+            url: 'https://api.danjubao.cn/v1/register',
             headers: {
               'Content-Type': 'application/json',
             },
@@ -209,7 +207,9 @@
               layer.msg('注册成功，请登录', {
                 icon: 1,
               })
-              window.location.href = '../login/index.html'
+              setTimeout(() => {
+                window.location.href = '../login/index.html'
+              }, 1000)
             },
             error: function (e) {
               console.log(e)
