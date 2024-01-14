@@ -28,6 +28,7 @@
             <div class="layui-input-block account-form-icon-input">
               <input
                 type="tel"
+                id="phoneInput"
                 name="phone"
                 lay-verify="required|phone"
                 autocomplete="off"
@@ -131,8 +132,8 @@
                       Phone: data.field.phone,
                       Avatar: '',
                       Token: response.data,
-                      password: data.field.password,
-                      savePassword: data.field.rememberPwd === 'on',
+                      Password: data.field.password,
+                      SavePassword: data.field.rememberPwd === 'on',
                     })
                   )
                   .then(function () {
@@ -167,6 +168,7 @@
       // 设置密码
       function setPassword(pwdInfo) {
         pwdInfo = JSON.parse(pwdInfo)
+        $('#phoneInput').val(pwdInfo.phone)
         $('#passwordInput').val(pwdInfo.password)
         $('#rememberPwdCheckbox').prop('checked', pwdInfo.savePassword)
         layui.form.render('checkbox')
