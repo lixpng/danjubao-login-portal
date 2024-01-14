@@ -57,7 +57,7 @@
           <div class="layui-form-item account-form-rember-pwd">
             <input
               type="checkbox"
-              name=""
+              name="rememberPwd"
               title="记住密码"
               lay-skin="primary"
             />
@@ -129,6 +129,8 @@
                       Phone: data.field.phone,
                       Avatar: '',
                       Token: response.data,
+                      password: data.file.password,
+                      savePassword: data.field.rememberPwd === 'on',
                     })
                   )
                   .then(function () {
