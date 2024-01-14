@@ -43,6 +43,7 @@
             ></label>
             <div class="layui-input-block account-form-icon-input">
               <input
+                id="passwordInput"
                 type="password"
                 name="password"
                 lay-verify="required"
@@ -60,6 +61,7 @@
               name="rememberPwd"
               title="记住密码"
               lay-skin="primary"
+              id="rememberPwdCheckbox"
             />
           </div>
 
@@ -159,6 +161,16 @@
           })
         })
       })
+    </script>
+
+    <script>
+      // 设置密码
+      function setPassword(pwdInfo) {
+        pwdInfo = JSON.parse(pwdInfo)
+        $('#passwordInput').val(pwdInfo.password)
+        $('#rememberPwdCheckbox').prop('checked', pwdInfo.savePassword)
+        layui.form.render('checkbox')
+      }
     </script>
   </body>
 </html>
